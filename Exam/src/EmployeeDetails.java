@@ -218,8 +218,10 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 		return buttonPanel;
 	}
-
-
+	private void addLabelAndField(JPanel panel, String labelText, JTextField textField) {
+	    panel.add(new JLabel(labelText), "growx, pushx");
+	    panel.add(textField, "growx, pushx, wrap");
+	}
 
 	// initialize main/details panel
 	private JPanel detailsPanel() {
@@ -227,28 +229,21 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		JPanel buttonPanel = new JPanel();
 		JTextField field;
 		
-		
-		empDetails.add(new JLabel("ID:"), "growx, pushx");
-		empDetails.add(idField = new JTextField(20), "growx, pushx, wrap");
-
 		empDetails.setBorder(BorderFactory.createTitledBorder("Employee Details"));
-		empDetails.add(new JLabel("PPS Number:"), "growx, pushx");
-		empDetails.add(ppsField = new JTextField(20), "growx, pushx, wrap");
-
-		empDetails.add(new JLabel("Surname:"), "growx, pushx");
-		empDetails.add(surnameField = new JTextField(20), "growx, pushx, wrap");
-
-		empDetails.add(new JLabel("First Name:"), "growx, pushx");
-		empDetails.add(firstNameField = new JTextField(20), "growx, pushx, wrap");
+			
+		addLabelAndField(empDetails, "ID:", idField = new JTextField(20));
+		idField.setEditable(false);
+		addLabelAndField(empDetails, "PPS Number:", ppsField = new JTextField(20));
+		addLabelAndField(empDetails, "Surname:", surnameField = new JTextField(20));
+		addLabelAndField(empDetails, "First Name:", firstNameField = new JTextField(20));
+		addLabelAndField(empDetails, "Salary:", salaryField = new JTextField(20));
+		
 
 		empDetails.add(new JLabel("Gender:"), "growx, pushx");
 		empDetails.add(genderCombo = new JComboBox<String>(gender), "growx, pushx, wrap");
 
 		empDetails.add(new JLabel("Department:"), "growx, pushx");
 		empDetails.add(departmentCombo = new JComboBox<String>(department), "growx, pushx, wrap");
-
-		empDetails.add(new JLabel("Salary:"), "growx, pushx");
-		empDetails.add(salaryField = new JTextField(20), "growx, pushx, wrap");
 
 		empDetails.add(new JLabel("Full Time:"), "growx, pushx");
 		empDetails.add(fullTimeCombo = new JComboBox<String>(fullTime), "growx, pushx, wrap");
