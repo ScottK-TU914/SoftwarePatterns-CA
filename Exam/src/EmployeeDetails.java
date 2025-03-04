@@ -222,6 +222,11 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	    panel.add(new JLabel(labelText), "growx, pushx");
 	    panel.add(textField, "growx, pushx, wrap");
 	}
+	
+	private void addLabelAndDropdown(JPanel panel, String labelText, JComboBox<String> comboBox) {
+	    panel.add(new JLabel(labelText), "growx, pushx");
+	    panel.add(comboBox, "growx, pushx, wrap");
+	}
 
 	// initialize main/details panel
 	private JPanel detailsPanel() {
@@ -237,16 +242,9 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		addLabelAndField(empDetails, "Surname:", surnameField = new JTextField(20));
 		addLabelAndField(empDetails, "First Name:", firstNameField = new JTextField(20));
 		addLabelAndField(empDetails, "Salary:", salaryField = new JTextField(20));
-		
-
-		empDetails.add(new JLabel("Gender:"), "growx, pushx");
-		empDetails.add(genderCombo = new JComboBox<String>(gender), "growx, pushx, wrap");
-
-		empDetails.add(new JLabel("Department:"), "growx, pushx");
-		empDetails.add(departmentCombo = new JComboBox<String>(department), "growx, pushx, wrap");
-
-		empDetails.add(new JLabel("Full Time:"), "growx, pushx");
-		empDetails.add(fullTimeCombo = new JComboBox<String>(fullTime), "growx, pushx, wrap");
+		addLabelAndDropdown(empDetails, "Gender:", genderCombo = new JComboBox<>(gender));
+		addLabelAndDropdown(empDetails, "Department:", departmentCombo = new JComboBox<>(department));
+		addLabelAndDropdown(empDetails, "Full Time:", fullTimeCombo = new JComboBox<>(fullTime));
 
 
 		buttonPanel.add(saveChange = new JButton("Save"));
