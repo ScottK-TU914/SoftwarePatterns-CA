@@ -4,27 +4,15 @@
  * 
  * */
 
-public class Employee{
-	private int employeeId;
-	private String pps;
-	private String surname;
-	private String firstName;
-	private char gender;
-	private String department;
-	private double salary;
-	private boolean fullTime;
-
-	// Create Employee with no details
-	public Employee() {
-		this.employeeId = 0;
-		this.pps = "";
-		this.surname = "";
-		this.firstName = "";
-		this.gender = '\0';
-		this.department = "";
-		this.salary = 0;
-		this.fullTime = false;
-	}//end Employee with no details
+public class Employee {
+    private int employeeId = 0;
+    private String pps = "";
+    private String surname = "";
+    private String firstName = "";
+    private char gender = '\0';
+    private String department = "";
+    private double salary = 0.0;
+    private boolean fullTime = false;
 
 	// Create Employee with details
 	public Employee(int employeeId, String pps, String surname, String firstName, char gender, String department, double salary,
