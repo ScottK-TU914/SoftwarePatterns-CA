@@ -57,24 +57,32 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 	public Container summaryPane() {
 		JPanel summaryDialog = new JPanel(new MigLayout());
 		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		
+		
 		// column center alignment
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		// column left alignment 
 		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
-		Vector<String> header = new Vector<String>();
-		// header names
-		String[] headerName = { "ID", "PPS Number", "Surname", "First Name", "Gender", "Department", "Salary",
-				"Full Time" };
+		
+		
+        Vector<String> columnHeaders = new Vector<>();
+        columnHeaders.add("ID");
+        columnHeaders.add("PPS Number");
+        columnHeaders.add("Surname");
+        columnHeaders.add("First Name");
+        columnHeaders.add("Gender");
+        columnHeaders.add("Department");
+        columnHeaders.add("Salary");
+        columnHeaders.add("Full Time");
+        
 		// column widths
 		int[] colWidth = { 15, 100, 120, 120, 50, 120, 80, 80 };
+		
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 		leftRenderer.setHorizontalAlignment(JLabel.LEFT);
-		// add headers
-		for (int i = 0; i < headerName.length; i++) {
-			header.addElement(headerName[i]);
-		}// end for
+
 		// construnct table and choose table model for each column
-		tableModel = new DefaultTableModel(this.FixedEmployees, header) {
+		tableModel = new DefaultTableModel(this.FixedEmployees, columnHeaders) {
 			
 			public Class getColumnClass(int columnNumber) {
 				switch (columnNumber) {
@@ -88,10 +96,7 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 		};
 
 		employeeTable = new JTable(tableModel);
-		// add header names to table
-		for (int i = 0; i < employeeTable.getColumnCount(); i++) {
-			employeeTable.getColumn(headerName[i]).setMinWidth(colWidth[i]);
-		}// end for
+
 		// set alignments
 		employeeTable.getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
 		employeeTable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
@@ -121,11 +126,9 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 	}
 	// format for salary column
 	static class DecimalFormatRenderer extends DefaultTableCellRenderer {
-		 private static final DecimalFormat format = new DecimalFormat(
-		 "\u20ac ###,###,##0.00" );
+		 private static final DecimalFormat format = new DecimalFormat("\u20ac ###,###,##0.00" );
 
-		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-				int row, int column) {
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
 			Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 			 JLabel label = (JLabel) c;
