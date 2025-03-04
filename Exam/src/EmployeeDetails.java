@@ -200,23 +200,21 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 		return navigPanel;
 	}// end naviPanel
+	
+	private JButton createButton(String text, String tooltip, ActionListener listener) {
+	    JButton button = new JButton(text);
+	    button.addActionListener(listener);
+	    button.setToolTipText(tooltip);
+	    return button;
+	}
 
 	private JPanel buttonPanel() {
 		JPanel buttonPanel = new JPanel();
 
-		buttonPanel.add(add = new JButton("Add Record"), "growx, pushx");
-		add.addActionListener(this);
-		add.setToolTipText("Add new Employee Record");
-		buttonPanel.add(edit = new JButton("Edit Record"), "growx, pushx");
-		edit.addActionListener(this);
-		edit.setToolTipText("Edit current Employee");
-		buttonPanel.add(deleteButton = new JButton("Delete Record"), "growx, pushx, wrap");
-		deleteButton.addActionListener(this);
-		deleteButton.setToolTipText("Delete current Employee");
-		buttonPanel.add(displayAll = new JButton("List all Records"), "growx, pushx");
-		displayAll.addActionListener(this);
-		displayAll.setToolTipText("List all Registered Employees");
-
+		buttonPanel.add(add = createButton("Add Record", "Add new Employee Record", this));
+		buttonPanel.add(edit = createButton("Edit Record", "Edit current Employee", this));
+		buttonPanel.add(deleteButton = createButton("Delete Record", "Delete current Employee", this));
+		buttonPanel.add(displayAll = createButton("List all Records", "List all Registered Employees", this));
 
 		return buttonPanel;
 	}
