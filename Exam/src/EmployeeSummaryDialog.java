@@ -43,7 +43,6 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 		setLocation(350, 250);
 		setVisible(true);
 		
-		
 		//Fix allEmployees for listAll but converting to a proper Vector<Vector<Object>>
 		
         FixedEmployees = new Vector<>();
@@ -58,8 +57,6 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 	public Container summaryPane() {
 		JPanel summaryDialog = new JPanel(new MigLayout());
 		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		JTable employeeTable;
-		DefaultTableModel tableModel;
 		// column center alignment
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		// column left alignment 
@@ -78,18 +75,14 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 		}// end for
 		// construnct table and choose table model for each column
 		tableModel = new DefaultTableModel(this.FixedEmployees, header) {
-			public Class getColumnClass(int c) {
-				switch (c) {
-				case 0:
-					return Integer.class;
-				case 4:
-					return Character.class;
-				case 6:
-					return Double.class;
-				case 7:
-					return Boolean.class;
-				default:
-					return String.class;
+			
+			public Class getColumnClass(int columnNumber) {
+				switch (columnNumber) {
+                case 0: return Integer.class;   // ID
+                case 4: return Character.class; // Gender
+                case 6: return Double.class;    // Salary
+                case 7: return Boolean.class;   // Full-Time
+                default: return String.class;
 				}// end switch
 			}// end getColumnClass
 		};
