@@ -3,7 +3,6 @@
  * This is the summary dialog for displaying all Employee details
  * 
  * */
-
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -12,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.Vector;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -28,24 +26,34 @@ import net.miginfocom.swing.MigLayout;
 
 public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 	// vector with all Employees details
-	Vector<Object> allEmployees;
-	JButton back;
+	private JTable employeeTable;
+	private DefaultTableModel tableModel;
+	private JButton back;
+    private Vector<Vector<Object>> FixedEmployees;
 	
 	public EmployeeSummaryDialog(Vector<Object> allEmployees) {
 		setTitle("Employee Summary");
 		setModal(true);
-		this.allEmployees = allEmployees;
-
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
+		
 		JScrollPane scrollPane = new JScrollPane(summaryPane());
 		setContentPane(scrollPane);
-
+		
 		setSize(850, 500);
 		setLocation(350, 250);
 		setVisible(true);
-
+		
+		
+		//Fix allEmployees for listAll but converting to a proper Vector<Vector<Object>>
+		
+        FixedEmployees = new Vector<>();
+        for (Object obj : allEmployees) {
+            if (obj instanceof Vector) {
+                FixedEmployees.add((Vector<Object>) obj);
+            }
+        }
 	}
+	
 	// initialise container
 	public Container summaryPane() {
 		JPanel summaryDialog = new JPanel(new MigLayout());
@@ -69,7 +77,7 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 			header.addElement(headerName[i]);
 		}// end for
 		// construnct table and choose table model for each column
-		tableModel = new DefaultTableModel(this.allEmployees, header) {
+		tableModel = new DefaultTableModel(this.FixedEmployees, header) {
 			public Class getColumnClass(int c) {
 				switch (c) {
 				case 0:
