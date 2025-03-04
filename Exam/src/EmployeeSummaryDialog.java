@@ -35,13 +35,8 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 		setTitle("Employee Summary");
 		setModal(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
-		JScrollPane scrollPane = new JScrollPane(summaryPane());
-		setContentPane(scrollPane);
-		
 		setSize(850, 500);
 		setLocation(350, 250);
-		setVisible(true);
 		
 		//Fix allEmployees for listAll but converting to a proper Vector<Vector<Object>>
 		
@@ -51,6 +46,10 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
                 FixedEmployees.add((Vector<Object>) obj);
             }
         }
+        
+		JScrollPane scrollPane = new JScrollPane(summaryPane());
+		setContentPane(scrollPane);
+		setVisible(true);
 	}
 	
 	// initialise container
