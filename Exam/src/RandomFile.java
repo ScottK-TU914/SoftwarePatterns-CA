@@ -269,25 +269,25 @@ public class RandomFile {
 	}// end isPpsExist
 
 	// Check if any record contains valid ID - greater than 0
-	public boolean isSomeoneToDisplay() {
-		boolean someoneToDisplay = false;
+	public boolean isValidRecord() {
+		boolean validRecord = false;
 		long currentByte = 0;
 		RandomAccessEmployeeRecord record = new RandomAccessEmployeeRecord();
 
 		try {// try to read from file and look for ID
 			// Start from start of file and loop until valid ID is found or search returned to start position
-			while (currentByte != input.length() && !someoneToDisplay) {
+			while (currentByte != input.length() && !validRecord) {
 				input.seek(currentByte);// Look for proper position in file
 				record.read(input);// Get record from file
 				// If valid ID exist in stop search
 				if (record.getEmployeeId() > 0)
-					someoneToDisplay = true;
+					validRecord = true;
 				currentByte = currentByte + RandomAccessEmployeeRecord.SIZE;
 			}// end while
 		}// end try
 		catch (IOException e) { 
 		    e.printStackTrace();} //added for debugging 
 
-		return someoneToDisplay;
+		return validRecord;
 	}// end isSomeoneToDisplay
 }// end class RandomFile
