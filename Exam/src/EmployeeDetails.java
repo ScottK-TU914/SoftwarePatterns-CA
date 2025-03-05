@@ -79,14 +79,15 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	// holds current Employee object
 	Employee currentEmployee;
 	JTextField searchByIdField, searchBySurnameField;
-	// gender combo box values
+	
+        // COMBO BOX VALUES // 
 	String[] gender = { "", "M", "F" };
-	// department combo box values
 	String[] department = { "", "Administration", "Production", "Transport", "Management" };
-	// full time combo box values
 	String[] fullTime = { "", "Yes", "No" };
 
-	// initialize menu bar
+	
+	    // EMPLOYEE DETAILS UI // 
+
 	private JMenuBar menuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu fileMenu, recordMenu, navigateMenu, closeMenu;
@@ -286,7 +287,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		return empDetails;
 	}// end detailsPanel
 
-	// display current Employee details
 	public void displayRecords(Employee thisEmployee) {
 		int countGender = 0;
 		int countDep = 0;
@@ -294,8 +294,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 		searchByIdField.setText("");
 		searchBySurnameField.setText("");
-		// if Employee is null or ID is 0 do nothing else display Employee
-		// details
+		// if Employee is null or ID is 0 do nothing else and display Employee details
 		if (thisEmployee == null) {
 		} else if (thisEmployee.getEmployeeId() == 0) {
 		} else {
@@ -330,29 +329,28 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		change = false;
 	}// end display records
 
-	// display Employee summary dialog
 	private void displayEmployeeSummaryDialog() {
 		// display Employee summary dialog if these is someone to display
-		if (isSomeoneToDisplay())
+		if (isValidRecord())
 			new EmployeeSummaryDialog(getAllEmloyees());
 	}// end displaySummaryDialog
 
 	// display search by ID dialog
 	private void displaySearchByIdDialog() {
-		if (isSomeoneToDisplay())
+		if (isValidRecord())
 			new SearchByIdDialog(EmployeeDetails.this);
 	}// end displaySearchByIdDialog
 
 	// display search by surname dialog
 	private void displaySearchBySurnameDialog() {
-		if (isSomeoneToDisplay())
+		if (isValidRecord())
 			new SearchBySurnameDialog(EmployeeDetails.this);
 	}// end displaySearchBySurnameDialog
 
 	// find byte start in file for first active record
 	private void firstRecord() {
 		// if any active record in file look for first record
-		if (isSomeoneToDisplay()) {
+		if (isValidRecord()) {
 			// open file for reading
 			application.openReadFile(file.getAbsolutePath());
 			// get byte start in file for first record
@@ -369,7 +367,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	// find byte start in file for previous active record
 	private void previousRecord() {
 		// if any active record in file look for first record
-		if (isSomeoneToDisplay()) {
+		if (isValidRecord()) {
 			// open file for reading
 			application.openReadFile(file.getAbsolutePath());
 			// get byte start in file for previous record
@@ -390,7 +388,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	// find byte start in file for next active record
 	private void nextRecord() {
 		// if any active record in file look for first record
-		if (isSomeoneToDisplay()) {
+		if (isValidRecord()) {
 			// open file for reading
 			application.openReadFile(file.getAbsolutePath());
 			// get byte start in file for next record
@@ -411,7 +409,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	// find byte start in file for last active record
 	private void lastRecord() {
 		// if any active record in file look for first record
-		if (isSomeoneToDisplay()) {
+		if (isValidRecord()) {
 			// open file for reading
 			application.openReadFile(file.getAbsolutePath());
 			// get byte start in file for last record
@@ -431,7 +429,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 		try {// try to read correct correct from input
 				// if any active Employee record search for ID else do nothing
-			if (isSomeoneToDisplay()) {
+			if (isValidRecord()) {
 				firstRecord();// look for first record
 				int firstId = currentEmployee.getEmployeeId();
 				// if ID to search is already displayed do nothing else loop
@@ -474,7 +472,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	public void searchEmployeeBySurname() {
 		boolean found = false;
 		// if any active Employee record search for ID else do nothing
-		if (isSomeoneToDisplay()) {
+		if (isValidRecord()) {
 			firstRecord();// look for first record
 			String firstSurname = currentEmployee.getSurname().trim();
 			// if ID to search is already displayed do nothing else loop through
@@ -513,7 +511,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		int nextFreeId = 0;
 		// if file is empty or all records are empty start with ID 1 else look
 		// for last active record
-		if (file.length() == 0 || !isSomeoneToDisplay())
+		if (file.length() == 0 || !isValidRecord())
 			nextFreeId++;
 		else {
 			lastRecord();// look for last active record
@@ -549,7 +547,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 	// delete (make inactive - empty) record from file
 	private void deleteRecord() {
-		if (isSomeoneToDisplay()) {// if any active record in file display
+		if (isValidRecord()) {// if any active record in file display
 									// message and delete record
 			int returnVal = JOptionPane.showOptionDialog(frame, "Do you want to delete record?", "Delete",
 					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
@@ -561,7 +559,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				application.deleteRecords(currentByteStart);
 				application.closeWriteFile();// close file for writing
 				// if any active record in file display next record
-				if (isSomeoneToDisplay()) {
+				if (isValidRecord()) {
 					nextRecord();// look for next record
 					displayRecords(currentEmployee);
 				} // end if
@@ -602,7 +600,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	// activate field for editing
 	private void editDetails() {
 		// activate field for editing if there is records to display
-		if (isSomeoneToDisplay()) {
+		if (isValidRecord()) {
 			// remove euro sign from salary text field
 			salaryField.setText(fieldFormat.format(currentEmployee.getSalary()));
 			change = false;
@@ -617,15 +615,15 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	}// end cancelChange
 
 	// check if any of records in file is active - ID is not 0
-	private boolean isSomeoneToDisplay() {
-		boolean someoneToDisplay = false;
+	private boolean isValidRecord() {
+		boolean validRecord = false;
 		// open file for reading
 		application.openReadFile(file.getAbsolutePath());
 		// check if any of records in file is active - ID is not 0
-		someoneToDisplay = application.isValidRecord();
+		validRecord = application.isValidRecord();
 		application.closeReadFile();// close file for reading
 		// if no records found clear all text fields and display message
-		if (!someoneToDisplay) {
+		if (!validRecord) {
 			currentEmployee = null;
 			idField.setText("");
 			ppsField.setText("");
@@ -637,8 +635,8 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			fullTimeCombo.setSelectedIndex(0);
 			JOptionPane.showMessageDialog(null, "No Employees registered!");
 		}
-		return someoneToDisplay;
-	}// end isSomeoneToDisplay
+		return validRecord;
+	}// end isValidRecord
 
 	// check for correct PPS format and look if PPS already in use
 	public boolean correctPps(String pps, long currentByte) {
@@ -752,7 +750,6 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		return valid;
 	}
 
-	// set text field background colour to white
 	private void setToWhite() {
 		ppsField.setBackground(UIManager.getColor("TextField.background"));
 		surnameField.setBackground(UIManager.getColor("TextField.background"));
@@ -843,7 +840,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 						// write changes to file for corresponding Employee
 						// record
 						application.changeRecords(currentEmployee, currentByteStart);
-						application.closeWriteFile();// close file for writing
+						application.closeWriteFile();
 					} // end if
 				} // end if
 			} // end if
@@ -859,14 +856,12 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
 		// if user choose to save changes, save changes
 		if (returnVal == JOptionPane.YES_OPTION) {
-			// open file for writing
 			application.openWriteFile(file.getAbsolutePath());
-			// get changes for current Employee
 			currentEmployee = getChangedDetails();
 			// write changes to file for corresponding Employee record
 			application.changeRecords(currentEmployee, currentByteStart);
-			application.closeWriteFile();// close file for writing
-			changesMade = false;// state that all changes has bee saved
+			application.closeWriteFile();
+			changesMade = false;// state that all changes has been saved
 		} // end if
 		displayRecords(currentEmployee);
 		setEnabled(false);
@@ -887,15 +882,12 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		// if file has chosen or written, save old file in new file
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			newFile = fc.getSelectedFile();
-			// check for file name
 			if (!checkFileName(newFile)) {
 				// add .dat extension if it was not there
 				newFile = new File(newFile.getAbsolutePath() + ".dat");
-				// create new file
 				application.createFile(newFile.getAbsolutePath());
 			} // end id
 			else
-				// create new file
 				application.createFile(newFile.getAbsolutePath());
 
 			try {// try to copy old file to new file
@@ -1026,7 +1018,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			}
 		} else if (e.getSource() == listAll || e.getSource() == displayAll) {
 			if (checkInput() && !checkForChanges())
-				if (isSomeoneToDisplay())
+				if (isValidRecord())
 					displayEmployeeSummaryDialog();
 		} else if (e.getSource() == create || e.getSource() == add) {
 			if (checkInput() && !checkForChanges())
