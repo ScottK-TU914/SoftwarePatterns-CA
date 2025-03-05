@@ -45,6 +45,18 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		setVisible(true);
 	}// end AddRecordDialog
 
+	
+	private void addLabelAndField(JPanel panel, String labelText, JTextField textField) {
+	    panel.add(new JLabel(labelText), "growx, pushx");
+	    panel.add(textField, "growx, pushx, wrap");
+	}
+	
+	private void addLabelAndDropdown(JPanel panel, String labelText, JComboBox<String> comboBox) {
+	    panel.add(new JLabel(labelText), "growx, pushx");
+	    panel.add(comboBox, "growx, pushx, wrap");
+	}
+
+	
 	// initialize dialog container
 	public Container dialogPane() {
 		JPanel empDetails, buttonPanel;
@@ -58,27 +70,13 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		empDetails.add(idField = new JTextField(20), "growx, pushx, wrap");
 		idField.setEditable(false);
 		
-
-		empDetails.add(new JLabel("PPS Number:"), "growx, pushx");
-		empDetails.add(ppsField = new JTextField(20), "growx, pushx, wrap");
-
-		empDetails.add(new JLabel("Surname:"), "growx, pushx");
-		empDetails.add(surnameField = new JTextField(20), "growx, pushx, wrap");
-
-		empDetails.add(new JLabel("First Name:"), "growx, pushx");
-		empDetails.add(firstNameField = new JTextField(20), "growx, pushx, wrap");
-
-		empDetails.add(new JLabel("Gender:"), "growx, pushx");
-		empDetails.add(genderCombo = new JComboBox<String>(this.parent.gender), "growx, pushx, wrap");
-
-		empDetails.add(new JLabel("Department:"), "growx, pushx");
-		empDetails.add(departmentCombo = new JComboBox<String>(this.parent.department), "growx, pushx, wrap");
-
-		empDetails.add(new JLabel("Salary:"), "growx, pushx");
-		empDetails.add(salaryField = new JTextField(20), "growx, pushx, wrap");
-
-		empDetails.add(new JLabel("Full Time:"), "growx, pushx");
-		empDetails.add(fullTimeCombo = new JComboBox<String>(this.parent.fullTime), "growx, pushx, wrap");
+		addLabelAndField(empDetails, "PPS Number:", ppsField);
+		addLabelAndField(empDetails, "Surname:", surnameField);
+		addLabelAndField(empDetails, "First Name:", firstNameField);
+		addLabelAndField(empDetails, "Salary:", salaryField);
+		addLabelAndDropdown(empDetails, "Gender:", genderCombo);
+		addLabelAndDropdown(empDetails, "Department:", departmentCombo);
+		addLabelAndDropdown(empDetails, "Full Time:", fullTimeCombo);
 
 		buttonPanel.add(save = new JButton("Save"));
 		save.addActionListener(this);
