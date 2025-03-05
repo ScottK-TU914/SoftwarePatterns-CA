@@ -622,7 +622,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		// open file for reading
 		application.openReadFile(file.getAbsolutePath());
 		// check if any of records in file is active - ID is not 0
-		someoneToDisplay = application.isSomeoneToDisplay();
+		someoneToDisplay = application.isValidRecord();
 		application.closeReadFile();// close file for reading
 		// if no records found clear all text fields and display message
 		if (!someoneToDisplay) {
