@@ -165,8 +165,8 @@ public class RandomFile {
 		try {// try to get file
 			input.length();
 		} // end try
-		catch (IOException e) {
-		}// end catch
+		catch (IOException e) { 
+		    e.printStackTrace();} //added for debugging 
 		
 		return byteToStart;
 	}// end getFirst
@@ -178,8 +178,8 @@ public class RandomFile {
 		try {// try to get position of last record
 			byteToStart = input.length() - RandomAccessEmployeeRecord.SIZE;
 		}// end try 
-		catch (IOException e) {
-		}// end catch
+		catch (IOException e) { 
+		    e.printStackTrace();} //added for debugging 
 
 		return byteToStart;
 	}// end getFirst
@@ -198,8 +198,8 @@ public class RandomFile {
 		} // end try
 		catch (NumberFormatException e) {
 		} // end catch
-		catch (IOException e) {
-		}// end catch
+		catch (IOException e) { 
+		    e.printStackTrace();} //added for debugging 
 		return byteToStart;
 	}// end getFirst
 
@@ -217,8 +217,8 @@ public class RandomFile {
 		} // end try
 		catch (NumberFormatException e) {
 		} // end catch
-		catch (IOException e) {
-		}// end catch
+		catch (IOException e) { 
+		    e.printStackTrace();} //added for debugging 
 		return byteToStart;
 	}// end getPrevious
 
@@ -231,8 +231,8 @@ public class RandomFile {
 			input.seek(byteToStart);// Look for proper position in file
 			record.read(input);// Read record from file
 		} // end try
-		catch (IOException e) {
-		}// end catch
+		catch (IOException e) { 
+		    e.printStackTrace();} //added for debugging 
 		
 		thisEmp = record;
 
@@ -262,8 +262,8 @@ public class RandomFile {
 				currentByte = currentByte + RandomAccessEmployeeRecord.SIZE;
 			}// end while
 		} // end try
-		catch (IOException e) {
-		}// end catch
+		catch (IOException e) { 
+		    e.printStackTrace();} //added for debugging 
 
 		return ppsExist;
 	}// end isPpsExist
@@ -285,8 +285,8 @@ public class RandomFile {
 				currentByte = currentByte + RandomAccessEmployeeRecord.SIZE;
 			}// end while
 		}// end try
-		catch (IOException e) {
-		}// end catch
+		catch (IOException e) { 
+		    e.printStackTrace();} //added for debugging 
 
 		return someoneToDisplay;
 	}// end isSomeoneToDisplay

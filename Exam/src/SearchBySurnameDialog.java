@@ -33,8 +33,6 @@ public class SearchBySurnameDialog extends JDialog implements ActionListener{
 		JScrollPane scrollPane = new JScrollPane(searchPane());
 		setContentPane(scrollPane);
 
-		getRootPane().setDefaultButton(search);
-		
 		setSize(500, 190);
 		setLocation(350, 250);
 		setVisible(true);
@@ -76,6 +74,7 @@ public class SearchBySurnameDialog extends JDialog implements ActionListener{
 			this.parent.searchBySurnameField.setText(searchField.getText());
 			// search Employee by surname
 			this.parent.searchEmployeeBySurname();
+			
 			dispose();// dispose dialog
 		}// end if
 		// else dispose dialog
