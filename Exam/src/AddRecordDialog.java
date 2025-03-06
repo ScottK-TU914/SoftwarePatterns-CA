@@ -70,6 +70,14 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		empDetails.add(idField = new JTextField(20), "growx, pushx, wrap");
 		idField.setEditable(false);
 		
+		ppsField = new JTextField(20);
+		surnameField = new JTextField(20);
+		firstNameField = new JTextField(20);
+		salaryField = new JTextField(20);
+		genderCombo = new JComboBox<>(this.parent.gender);
+		departmentCombo = new JComboBox<>(this.parent.department);
+		fullTimeCombo = new JComboBox<>(this.parent.fullTime);
+
 		addLabelAndField(empDetails, "PPS Number:", ppsField);
 		addLabelAndField(empDetails, "Surname:", surnameField);
 		addLabelAndField(empDetails, "First Name:", firstNameField);
@@ -77,6 +85,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		addLabelAndDropdown(empDetails, "Gender:", genderCombo);
 		addLabelAndDropdown(empDetails, "Department:", departmentCombo);
 		addLabelAndDropdown(empDetails, "Full Time:", fullTimeCombo);
+
 
 		buttonPanel.add(save = new JButton("Save"));
 		save.addActionListener(this);
